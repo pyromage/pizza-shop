@@ -11,6 +11,7 @@ Parameters:
     Type: String
     Description: ARN of the ACM certificate for HTTPS
     Default: ''
+    # Note: For production, remove the default and make this a required parameter
 
 Resources:
   # S3 bucket for website content
@@ -18,14 +19,20 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref DomainName
-      AccessControl: Private
+      # Removed AccessControl: Private as it's deprecated in newer S3 API
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
 
-  # Bucket policy to allow CloudFront access
+  # Bucket policy to allow CloudFront access - fixed circular dependency issue
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
+    DependsOn: CloudFrontDistribution
     Properties:
       Bucket: !Ref WebsiteBucket
       PolicyDocument:
@@ -40,9 +47,20 @@ Resources:
               StringEquals:
                 AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}'
 
+  # CloudFront Origin Access Control - moved before CloudFront to fix reference
+  CloudFrontOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${AWS::StackName}-OAC'
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
   # CloudFront distribution
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
+    DependsOn: CloudFrontOriginAccessControl
     Properties:
       DistributionConfig:
         Enabled: true
@@ -54,6 +72,7 @@ Resources:
           - Id: S3Origin
             DomainName: !GetAtt WebsiteBucket.RegionalDomainName
             S3OriginConfig:
+              # This parameter is required when using OAC
               OriginAccessIdentity: ''
             OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
         DefaultCacheBehavior:
@@ -75,10 +94,13 @@ Resources:
             QueryString: false
             Cookies:
               Forward: none
-        ViewerCertificate:
-          AcmCertificateArn: !Ref AcmCertificateArn
-          SslSupportMethod: sni-only
-          MinimumProtocolVersion: TLSv1.2_2021
+        # Conditional for handling empty certificate ARN
+        ViewerCertificate: !If
+          - HasCertificate
+          - AcmCertificateArn: !Ref AcmCertificateArn
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
+          - CloudFrontDefaultCertificate: true
         HttpVersion: http2
         PriceClass: PriceClass_100
         CustomErrorResponses:
@@ -89,15 +111,9 @@ Resources:
             ResponseCode: 200
             ResponsePagePath: /index.html
 
-  # CloudFront Origin Access Control
-  CloudFrontOriginAccessControl:
-    Type: AWS::CloudFront::OriginAccessControl
-    Properties:
-      OriginAccessControlConfig:
-        Name: !Sub '${AWS::StackName}-OAC'
-        OriginAccessControlOriginType: s3
-        SigningBehavior: always
-        SigningProtocol: sigv4
+Conditions:
+  # Define condition for certificate ARN
+  HasCertificate: !Not [!Equals [!Ref AcmCertificateArn, '']]
 
 Outputs:
   WebsiteBucketName:
