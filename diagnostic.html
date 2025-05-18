@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MillBrook Pizza - Diagnostic Version</title>
+    <!-- Diagnostic script runs first -->
+    <script src="diagnose.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #d32f2f; }
+        button { 
+            background: #d32f2f; 
+            color: white; 
+            border: none; 
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #controls { margin-bottom: 20px; }
+        #results { 
+            background: #f5f5f5; 
+            padding: 20px; 
+            border: 1px solid #ddd;
+            min-height: 200px;
+        }
+        .menu-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>MillBrook Pizza - Diagnostic Page</h1>
+    
+    <div id="controls">
+        <button id="test1">Test 1: Basic DOM</button>
+        <button id="test2">Test 2: Menu Loading</button>
+        <button id="test3">Test 3: Cart Functions</button>
+        <button id="test4">Test 4: Payment</button>
+        <button id="clear">Clear Results</button>
+    </div>
+    
+    <div id="results"></div>
+    
+    <div id="status">Status: Ready</div>
+    
+    <script>
+        // Simple test utilities
+        const results = document.getElementById('results');
+        const status = document.getElementById('status');
+        
+        function log(message) {
+            const entry = document.createElement('div');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            results.appendChild(entry);
+        }
+        
+        function updateStatus(message) {
+            status.textContent = `Status: ${message}`;
+        }
+        
+        // Pizza menu data for testing
+        const menuItems = [
+            { id: 1, name: "Classic Margherita", price: 12.99 },
+            { id: 2, name: "Pepperoni", price: 14.99 },
+            { id: 3, name: "Meat Lovers", price: 16.99 }
+        ];
+        
+        // Test 1: Basic DOM operations
+        document.getElementById('test1').addEventListener('click', function() {
+            updateStatus('Running Test 1: Basic DOM Operations');
+            log('Starting Basic DOM Test');
+            
+            try {
+                // Create 10 elements
+                for (let i = 0; i < 10; i++) {
+                    const div = document.createElement('div');
+                    div.textContent = `Test Element ${i}`;
+                    div.className = 'test-element';
+                    results.appendChild(div);
+                }
+                
+                // Read them back
+                const elements = document.querySelectorAll('.test-element');
+                log(`Created and found ${elements.length} elements`);
+                
+                // Remove them
+                elements.forEach(el => el.remove());
+                
+                log('Basic DOM Test Completed Successfully');
+                updateStatus('Test 1 Completed');
+            } catch (error) {
+                log(`ERROR: ${error.message}`);
+                updateStatus('Test 1 Failed');
+            }
+        });
+        
+        // Test 2: Menu Loading Test
+        document.getElementById('test2').addEventListener('click', function() {
+            updateStatus('Running Test 2: Menu Loading');
+            log('Starting Menu Loading Test');
+            
+            try {
+                // Clear previous results
+                const previousMenuItems = document.querySelectorAll('.menu-item');
+                previousMenuItems.forEach(el => el.remove());
+                
+                // Add menu items one by one
+                menuItems.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item';
+                    menuItem.innerHTML = `
+                        <h3>${item.name}</h3>
+                        <p class="price">$${item.price.toFixed(2)}</p>
+                    `;
+                    results.appendChild(menuItem);
+                });
+                
+                log(`Added ${menuItems.length} menu items to the DOM`);
+                log('Menu Loading Test Completed Successfully');
+                updateStatus('Test 2 Completed');
+            } catch (error) {
+                log(`ERROR: ${error.message}`);
+                updateStatus('Test 2 Failed');
+            }
+        });
+        
+        // Test 3: Cart Functions
+        document.getElementById('test3').addEventListener('click', function() {
+            updateStatus('Running Test 3: Cart Functions');
+            log('Starting Cart Functions Test');
+            
+            try {
+                // Create a simple cart
+                const cart = {
+                    items: [],
+                    addItem: function(item) {
+                        this.items.push({...item, quantity: 1});
+                        log(`Added "${item.name}" to cart`);
+                    },
+                    removeItem: function(id) {
+                        const index = this.items.findIndex(item => item.id === id);
+                        if (index !== -1) {
+                            const removed = this.items.splice(index, 1)[0];
+                            log(`Removed "${removed.name}" from cart`);
+                        }
+                    },
+                    clearCart: function() {
+                        this.items = [];
+                        log('Cart cleared');
+                    },
+                    getTotal: function() {
+                        return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+                    }
+                };
+                
+                // Add items to cart
+                cart.addItem(menuItems[0]);
+                cart.addItem(menuItems[1]);
+                log(`Cart total: $${cart.getTotal().toFixed(2)}`);
+                
+                // Remove an item
+                cart.removeItem(menuItems[0].id);
+                log(`Cart total after removal: $${cart.getTotal().toFixed(2)}`);
+                
+                // Clear cart
+                cart.clearCart();
+                log(`Cart total after clearing: $${cart.getTotal().toFixed(2)}`);
+                
+                log('Cart Functions Test Completed Successfully');
+                updateStatus('Test 3 Completed');
+            } catch (error) {
+                log(`ERROR: ${error.message}`);
+                updateStatus('Test 3 Failed');
+            }
+        });
+        
+        // Test 4: Payment Functions
+        document.getElementById('test4').addEventListener('click', function() {
+            updateStatus('Running Test 4: Payment Functions');
+            log('Starting Payment Functions Test');
+            
+            try {
+                // Simple payment processing simulation
+                function processPayment(details, callback) {
+                    log(`Processing payment for $${details.amount}`);
+                    
+                    // Simulate network delay
+                    setTimeout(() => {
+                        const success = Math.random() > 0.2; // 80% success rate
+                        
+                        if (success) {
+                            log('Payment processed successfully');
+                            callback(null, { transactionId: 'TEST-' + Date.now() });
+                        } else {
+                            log('Payment processing failed');
+                            callback(new Error('Payment declined'), null);
+                        }
+                    }, 1500);
+                }
+                
+                // Process a payment
+                log('Submitting payment...');
+                processPayment({ amount: 29.99 }, (error, result) => {
+                    if (error) {
+                        log(`Payment error: ${error.message}`);
+                    } else {
+                        log(`Payment succeeded! Transaction ID: ${result.transactionId}`);
+                    }
+                    log('Payment Functions Test Completed');
+                    updateStatus('Test 4 Completed');
+                });
+                
+            } catch (error) {
+                log(`ERROR: ${error.message}`);
+                updateStatus('Test 4 Failed');
+            }
+        });
+        
+        // Clear results
+        document.getElementById('clear').addEventListener('click', function() {
+            results.innerHTML = '';
+            updateStatus('Results cleared');
+            
+            // Also reset diagnostics
+            if (window.millbrookDiagnostics && window.millbrookDiagnostics.reset) {
+                window.millbrookDiagnostics.reset();
+                log('Diagnostics reset');
+            }
+        });
+        
+        // Initialize
+        log('Diagnostic page initialized');
+        log('Click the buttons above to run tests');
+    </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MillBrook Pizza - Delicious Takeout Pizza</title>
+    <link rel="stylesheet" href="css/mobile-first.css">
+    <meta name="theme-color" content="#d32f2f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="js/cart.js" defer></script>
+    <script src="js/payment.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-left">
+                <h1>MillBrook Pizza</h1>
+                <div class="header-buttons">
+                    <a href="tel:5551234567" class="header-phone">
+                        <span class="phone-icon">📞</span> Call
+                    </a>
+                    <a href="#order" class="header-order">
+                        <span class="order-icon">🍕</span> Order Online
+                    </a>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-cart" id="header-cart-button">
+                    🛒 <span class="cart-count" id="header-cart-count">0</span>
+                </button>
+                <nav>
+                    <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#order">Order Online</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Fresh, Delicious Pizza Made Daily</h2>
+            <p>Order online for quick and easy takeout</p>
+            <a href="#order" class="btn">Order Now</a>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-items">
+                <!-- Menu items will be loaded from JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="order-section">
+        <div class="container">
+            <h2>Order Online</h2>
+            <div class="order-container">
+                <div class="menu-selection">
+                    <!-- Menu items with add buttons will be loaded from JavaScript -->
+                </div>
+                <div class="cart">
+                    <h3>Your Order</h3>
+                    <div id="cart-items">
+                        <!-- Cart items will be loaded here -->
+                    </div>
+                    <div class="cart-total">
+                        <p>Total: $<span id="cart-total">0.00</span></p>
+                    </div>
+                    <button id="checkout-btn" class="btn">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="checkout" class="checkout-section hidden">
+        <div class="container">
+            <h2>Checkout</h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="pickup-time">Pickup Time</label>
+                    <input type="time" id="pickup-time" name="pickup-time" required>
+                </div>
+                <div class="payment-details">
+                    <h3>Payment Details</h3>
+                    <div id="payment-element">
+                        <!-- Payment elements will be inserted here -->
+                    </div>
+                </div>
+                <button type="submit" class="btn">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <div>
+                    <h3>Address</h3>
+                    <p>123 Main Street<br>MillBrook, NY 12345</p>
+                </div>
+                <div>
+                    <h3>Hours</h3>
+                    <p>Monday - Thursday: 11am - 9pm<br>
+                       Friday - Saturday: 11am - 10pm<br>
+                       Sunday: 12pm - 8pm</p>
+                </div>
+                <div>
+                    <h3>Phone</h3>
+                    <p>(555) 123-4567</p>
+                </div>
+                <div>
+                    <h3>Email</h3>
+                    <p>info@millbrookpizza.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MillBrook Pizza. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal for order confirmation (hidden by default) -->
+    <div id="order-confirmation" class="modal hidden" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Thank You for Your Order!</h2>
+            <p>Your order has been placed successfully.</p>
+            <p>Order #: <span id="order-number"></span></p>
+            <p>Pickup Time: <span id="confirmation-pickup-time"></span></p>
+            <p>We'll send a confirmation to: <span id="confirmation-email"></span></p>
+        </div>
+    </div>
+</body>
+</html>
