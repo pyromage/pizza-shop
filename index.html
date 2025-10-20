@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dan's MillBrook Pizza</title>
+    <link rel="icon" type="image/jpeg" href="images/millbrooklogo.jpg">
+    <link rel="apple-touch-icon" href="images/millbrooklogo.jpg">
     <link rel="stylesheet" href="css/mobile-first.css">
     <link rel="stylesheet" href="css/app-styles.css">
     <meta name="theme-color" content="#d32f2f">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 
@@ -21,7 +23,7 @@
             </div>
             <div class="header-buttons">
                 <a href="tel:7059323220" class="header-phone">
-                    <span class="phone-icon">📞</span> Call
+                    <span class="phone-icon">📞</span> Order
                 </a>
             </div>
         </div>
@@ -131,13 +133,14 @@
             <div class="contact-info">
                 <div>
                     <h3>Address</h3>
-                    <p>13 Tupper St<br>Millbrook, ON L0A 1G0</p>
+                    <p><a href="https://maps.google.com/maps?q=13+Tupper+St,+Millbrook,+ON+L0A+1G0" target="_blank">13
+                            Tupper St<br>Millbrook, ON L0A 1G0</a></p>
                 </div>
                 <div>
                     <h3>Hours</h3>
-                    <p>Monday, Tuesday: 3pm - 9pm<br>
-                        Wednesday - Saturday: 11:30am - 9pm<br>
-                        Sunday: 12pm - 8pm</p>
+                    <p>Mon-Tue: 3pm - 9pm<br>
+                        Wed-Sat: 11:30am - 9pm<br>
+                        Sun: 12pm - 8pm</p>
                 </div>
                 <div>
                     <h3>Phone</h3>
@@ -170,22 +173,54 @@
                 <span class="payment-text">We Accept</span>
             </li>
             <li>
-                <a href="#menu">
-                    <div class="icon">🍕</div>
-                    Menu
-                </a>
-            </li>
-            <li>
-                <a href="#contact">
-                    <div class="icon">📞</div>
-                    Order
-                </a>
+                <div class="hours-info">
+                    <div class="hours-text">
+                        <div class="hours-line" id="hours-mon-tue">Mon-Tue: 3pm-9pm</div>
+                        <div class="hours-line" id="hours-wed-sat">Wed-Sat: 11:30am-9pm</div>
+                        <div class="hours-line" id="hours-sun">Sun: 12pm-8pm</div>
+                    </div>
+                </div>
             </li>
         </ul>
     </nav>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Highlight today's hours
+            function highlightTodaysHours() {
+                const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, etc.
+
+                // Remove existing 'today' classes
+                document.querySelectorAll('.hours-line').forEach(line => {
+                    line.classList.remove('today');
+                });
+
+                // Add 'today' class to the appropriate line
+                let todayElement;
+                switch (today) {
+                    case 1: // Monday
+                    case 2: // Tuesday
+                        todayElement = document.getElementById('hours-mon-tue');
+                        break;
+                    case 3: // Wednesday
+                    case 4: // Thursday
+                    case 5: // Friday
+                    case 6: // Saturday
+                        todayElement = document.getElementById('hours-wed-sat');
+                        break;
+                    case 0: // Sunday
+                        todayElement = document.getElementById('hours-sun');
+                        break;
+                }
+
+                if (todayElement) {
+                    todayElement.classList.add('today');
+                }
+            }
+
+            // Highlight today's hours on page load
+            highlightTodaysHours();
+
             // Mobile nav active state
             const navLinks = document.querySelectorAll('.mobile-navbar a');
 
