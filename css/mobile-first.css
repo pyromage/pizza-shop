@@ -232,8 +232,9 @@ nav ul li a:active {
 .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/pexels-cottonbro-4004418.jpg');
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
     color: #fff;
     text-align: center;
     padding: 3rem 1rem;
@@ -241,6 +242,17 @@ nav ul li a:active {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Mobile-specific hero adjustments */
+@media (max-width: 767px) {
+    .hero {
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center 20%;
+        min-height: 50vh;
+        padding: 2rem 1rem;
+    }
 }
 
 .hero .container {
