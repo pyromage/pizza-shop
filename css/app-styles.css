@@ -1,0 +1,605 @@
+/* Additional mobile-specific styles */
+@media (min-width: 768px) {
+    header .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .header-content {
+        flex-direction: row;
+        margin-bottom: 0;
+    }
+
+    .header-logo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .header-buttons {
+        flex-direction: row;
+        margin-top: 0;
+        width: auto;
+    }
+
+    .header-phone,
+    .header-order {
+        width: auto;
+        max-width: none;
+    }
+
+    .header-order {
+        margin-left: 0.5rem;
+    }
+
+    .header-cart {
+        position: static;
+        margin-left: 1rem;
+    }
+}
+
+.mobile-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.mobile-navbar ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem 0;
+}
+
+.mobile-navbar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.mobile-navbar .icon {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.mobile-navbar .active {
+    color: var(--primary-color);
+}
+
+/* Payment logos styling */
+.payment-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
+.payment-logos-container {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    height: 2rem;
+}
+
+.payment-logo {
+    height: 2rem;
+    width: auto;
+    border-radius: 2px;
+}
+
+.payment-text {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+}
+
+/* Desktop responsive scaling */
+@media (min-width: 768px) {
+    .mobile-navbar .icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .payment-logos-container {
+        gap: 8px;
+        height: 2.5rem;
+    }
+    
+    .payment-logo {
+        height: 2.5rem;
+    }
+    
+    .payment-text {
+        font-size: 1rem;
+    }
+    
+    .mobile-navbar a {
+        font-size: 1rem;
+    }
+}
+
+/* Add padding to avoid content being hidden by bottom nav */
+body {
+    padding-bottom: 70px;
+}
+
+/* Header with phone number */
+header {
+    padding: 1rem 0;
+}
+
+header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.header-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.header-phone,
+.header-order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 200px;
+}
+
+.header-phone {
+    background-color: var(--primary-color);
+}
+
+.header-order {
+    background-color: var(--secondary-color);
+}
+
+.header-phone:hover,
+.header-phone:active,
+.header-order:hover,
+.header-order:active {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.phone-icon,
+.order-icon {
+    margin-right: 0.5rem;
+}
+
+.header-cart {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    border: none;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.7rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide desktop navbar */
+header nav {
+    display: none;
+}
+
+/* Better touch targets */
+.btn,
+button,
+.menu-item button {
+    min-height: 44px;
+}
+
+input,
+select {
+    min-height: 44px;
+    font-size: 16px;
+    /* Prevent iOS zoom */
+}
+
+/* Simplified cart for mobile */
+.cart-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    z-index: 200;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-mobile.active {
+    transform: translateY(0);
+}
+
+.cart-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-mobile-close {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+}
+
+/* Overlay when cart is open */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 199;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Custom Pizza Modal */
+.custom-pizza-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    z-index: 300;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px 15px 0 0;
+}
+
+.custom-pizza-modal.active {
+    transform: translateY(0);
+}
+
+.custom-pizza-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+}
+
+.custom-pizza-close {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.custom-pizza-content {
+    padding: 1rem;
+}
+
+.custom-pizza-step {
+    margin-bottom: 1rem;
+}
+
+.custom-pizza-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 1rem 0;
+}
+
+.custom-option {
+    width: calc(50% - 5px);
+}
+
+.custom-option input[type="radio"] {
+    display: none;
+}
+
+.custom-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 100px;
+}
+
+.custom-option input[type="radio"]:checked+label {
+    border-color: var(--primary-color);
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+.option-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.option-label {
+    font-weight: bold;
+}
+
+.step-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.step-buttons button {
+    min-width: 48%;
+}
+
+.btn-next,
+.btn-add-cart {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-prev {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.toppings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.topping-category {
+    width: 100%;
+}
+
+.topping-option {
+    margin: 0.5rem 0;
+}
+
+.topping-option label {
+    margin-left: 0.5rem;
+}
+
+.toppings-note {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.custom-pizza-summary {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.cart-pickup-notice {
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.cart-pickup-notice p {
+    margin: 5px 0;
+}
+
+.cart-pickup-notice strong {
+    color: var(--primary-color);
+}
+
+.cart-checkout-options {
+    padding: 0 1rem;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.payment-option {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.payment-option:hover {
+    border-color: var(--primary-color);
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.payment-option input[type="radio"]:checked+label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.payment-option input[type="radio"]:checked~.payment-details {
+    display: block;
+}
+
+.payment-details {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #eee;
+    color: #666;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.payment-icons,
+.card-icons {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.order-summary {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.summary-total {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-weight: bold;
+}
+
+.pickup-info {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+#order-confirmation {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.confirmation-icon {
+    font-size: 3rem;
+    color: green;
+    margin-bottom: 15px;
+}
+
+#order-details {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: left;
+}
+
+#payment-method-conf {
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Remove the cart from header */
+.header-cart {
+    display: none;
+}
+
+/* Navbar positioning for cart count */
+.mobile-navbar li {
+    position: relative;
+}
+
+.navbar-cart-count {
+    position: absolute;
+    top: 0;
+    right: calc(50% - 20px);
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.7rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
