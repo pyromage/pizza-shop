@@ -783,3 +783,73 @@ select {
         font-size: 1rem;
     }
 }
+
+/* Panzerotti Section Styling */
+.panzerotti-layered-section {
+    position: relative;
+    margin: 1.5rem 0;
+}
+
+.panzerotti-image-section {
+    position: relative;
+    text-align: center;
+    z-index: 0;
+}
+
+.panzerotti-hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: 0 auto;
+    display: block;
+}
+
+.panzerotti-table-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 90%;
+    max-width: 400px;
+}
+
+@media (min-width: 768px) {
+    .panzerotti-hero-image {
+        max-width: 500px;
+    }
+    
+    .panzerotti-table-overlay {
+        width: 80%;
+        max-width: 450px;
+    }
+}
+
+@media (min-width: 992px) {
+    .panzerotti-hero-image {
+        max-width: 600px;
+    }
+    
+    .panzerotti-table-overlay {
+        width: 70%;
+        max-width: 500px;
+    }
+}
+
+/* Panzerotti Table Semi-Transparent Styling */
+.panzerotti-table {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.panzerotti-table th {
+    background-color: rgba(211, 47, 47, 0.9) !important;
+}
+
+.panzerotti-table tr:nth-child(even) {
+    background-color: rgba(249, 249, 249, 0.7) !important;
+}
+
+.panzerotti-table tr:hover {
+    background-color: rgba(211, 47, 47, 0.1) !important;
+}
