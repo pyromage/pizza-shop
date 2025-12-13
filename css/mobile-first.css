@@ -118,6 +118,7 @@ header .container {
 header h1 {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    font-size: 1.25rem;
 }
 
 /* Header Left Side */
@@ -647,6 +648,7 @@ footer {
     
     header h1 {
         margin-bottom: 0;
+        font-size: 1.75rem;
     }
     
     .header-left {
