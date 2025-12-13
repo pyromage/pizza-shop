@@ -1,6 +1,6 @@
-# Testing Instructions for MillBrook Pizza Website
+# Testing Instructions for Millbrook Pizza Website
 
-This document provides instructions for testing the MillBrook Pizza website locally to identify and fix any issues.
+This document provides instructions for testing the Millbrook Pizza website locally to identify and fix any issues.
 
 ## Manual Testing
 

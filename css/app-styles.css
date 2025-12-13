@@ -37,8 +37,11 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background: white;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05), 0 -1px 2px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
     z-index: 100;
 }
 
@@ -53,6 +56,12 @@
     flex-direction: column;
     align-items: center;
     font-size: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-navbar a:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .mobile-navbar .icon {
@@ -196,32 +205,33 @@ header .container {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--primary-color);
+    background: var(--gradient-primary);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    font-weight: bold;
+    padding: 0.625rem 1.25rem;
+    border-radius: 2rem;
+    font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     max-width: 200px;
+    border: none;
 }
 
 .header-phone {
-    background-color: var(--primary-color);
+    background: var(--gradient-primary);
 }
 
 .header-order {
-    background-color: var(--secondary-color);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
 .header-phone:hover,
 .header-phone:active,
 .header-order:hover,
 .header-order:active {
-    transform: scale(1.05);
-    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .phone-icon,
@@ -656,68 +666,196 @@ select {
 /* Oven-Fresh Pizza section styling */
 .toppings-section {
     margin-bottom: 1.5rem;
-    padding: 1rem;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+    border-radius: 1rem;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
 }
 
 .toppings-section h4 {
     color: var(--primary-color);
     font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
+}
+
+.toppings-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.toppings-column h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.toppings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.35rem;
+}
+
+@media (min-width: 480px) {
+    .toppings-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .toppings-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+.topping-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.65rem;
+    background: white;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    color: var(--gray-700);
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+}
+
+.topping-badge:hover {
+    border-color: var(--primary-color);
+    background: var(--gray-50);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 
 .toppings-list {
     font-size: 0.95rem;
-    line-height: 1.4;
+    line-height: 1.6;
     margin-bottom: 0;
-    color: #555;
+    color: var(--gray-600);
+}
+
+/* Category section styling */
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.category-section h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.category-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+.category-description {
+    color: var(--gray-600);
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Toppings Selector Dropdown */
+.toppings-selector-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--gray-700);
+}
+
+.toppings-select {
+    width: 100%;
+    max-width: 5rem;
+    padding: 0.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toppings-select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.toppings-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 /* Pricing table styling */
 .pizza-pricing-table {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .pricing-table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-100);
 }
 
 .pricing-table th,
 .pricing-table td {
-    padding: 0.75rem 0.5rem;
+    padding: 0.875rem 0.75rem;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--gray-100);
+    transition: background-color 0.2s ease;
 }
 
 .pricing-table th {
-    background-color: var(--primary-color);
+    background: var(--gradient-primary);
     color: white;
     font-weight: 600;
     text-align: center;
     font-size: 0.9rem;
+    letter-spacing: 0.01em;
 }
 
 .pricing-table th:first-child {
     text-align: left;
-    padding-left: 1rem;
+    padding-left: 1.25rem;
 }
 
 .pricing-table td:first-child {
     font-weight: 600;
-    color: var(--dark-color);
-    padding-left: 1rem;
+    color: var(--gray-900);
+    padding-left: 1.25rem;
 }
 
 .pricing-table td:not(:first-child) {
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--primary-color);
 }
 
@@ -726,11 +864,12 @@ select {
 }
 
 .pricing-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: var(--gray-50);
 }
 
-.pricing-table tr:hover {
-    background-color: rgba(211, 47, 47, 0.05);
+.pricing-table tbody tr:hover {
+    background-color: rgba(239, 68, 68, 0.05);
+    transform: scale(1.005);
 }
 
 /* Responsive table styling */
@@ -762,21 +901,24 @@ select {
 
 /* Gluten Notice Section */
 .gluten-notice-section {
-    background-color: #fff3cd;
-    border-top: 3px solid #ffc107;
-    padding: 1rem 0;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-top: 2px solid #f59e0b;
+    border-bottom: 2px solid #f59e0b;
+    padding: 1.5rem 0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .gluten-notice {
     margin: 0;
     text-align: center;
     font-size: 0.9rem;
-    color: #856404;
-    line-height: 1.4;
+    color: #92400e;
+    line-height: 1.6;
+    font-weight: 500;
 }
 
 .gluten-notice strong {
-    color: #664d03;
+    color: #78350f;
     font-weight: 700;
 }
 

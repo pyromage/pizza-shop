@@ -1,4 +1,4 @@
-# MillBrook Pizza Shop
+# Millbrook Pizza Shop
 
 A serverless web application for a takeout pizza shop that allows customers to view the menu, place orders, and make payments online.
 

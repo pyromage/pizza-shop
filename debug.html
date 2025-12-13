@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MillBrook Pizza - Debug Console</title>
+    <title>Millbrook Pizza - Debug Console</title>
     <style>
-        body { font-family: monospace; padding: 20px; line-height: 1.5; }
-        h1 { color: #d32f2f; }
-        #console { 
-            background: #f5f5f5; 
-            padding: 10px; 
-            border: 1px solid #ddd; 
-            height: 400px; 
+        body {
+            font-family: monospace;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            color: #d32f2f;
+        }
+
+        #console {
+            background: #f5f5f5;
+            padding: 10px;
+            border: 1px solid #ddd;
+            height: 400px;
             overflow-y: auto;
             margin-bottom: 20px;
         }
+
         button {
             background: #d32f2f;
             color: white;
@@ -23,13 +33,23 @@
             cursor: pointer;
             margin-right: 10px;
         }
-        .error { color: red; }
-        .info { color: blue; }
-        .warning { color: orange; }
+
+        .error {
+            color: red;
+        }
+
+        .info {
+            color: blue;
+        }
+
+        .warning {
+            color: orange;
+        }
     </style>
 </head>
+
 <body>
-    <h1>MillBrook Pizza - Debug Console</h1>
+    <h1>Millbrook Pizza - Debug Console</h1>
     <div>
         <button id="monitorDom">Monitor DOM Changes</button>
         <button id="detectLoops">Detect Loops</button>
@@ -41,7 +61,7 @@
     <script>
         // Console output to our custom console div
         const outputConsole = document.getElementById('console');
-        
+
         function log(message, type = 'normal') {
             const line = document.createElement('div');
             line.className = type;
@@ -58,100 +78,100 @@
             info: console.info
         };
 
-        console.log = function() {
+        console.log = function () {
             originalConsole.log.apply(console, arguments);
             log(Array.from(arguments).join(' '));
         };
 
-        console.error = function() {
+        console.error = function () {
             originalConsole.error.apply(console, arguments);
             log(Array.from(arguments).join(' '), 'error');
         };
 
-        console.warn = function() {
+        console.warn = function () {
             originalConsole.warn.apply(console, arguments);
             log(Array.from(arguments).join(' '), 'warning');
         };
 
-        console.info = function() {
+        console.info = function () {
             originalConsole.info.apply(console, arguments);
             log(Array.from(arguments).join(' '), 'info');
         };
 
         // DOM Monitoring
         let mutationObserver;
-        
+
         document.getElementById('monitorDom').addEventListener('click', () => {
             console.info('Starting DOM mutation monitoring...');
-            
+
             if (mutationObserver) {
                 mutationObserver.disconnect();
             }
-            
+
             let mutationCount = 0;
             const startTime = Date.now();
             const elementStats = {};
-            
+
             mutationObserver = new MutationObserver(mutations => {
                 mutationCount += mutations.length;
-                
+
                 for (const mutation of mutations) {
                     const targetPath = getElementPath(mutation.target);
-                    
+
                     if (!elementStats[targetPath]) {
                         elementStats[targetPath] = {
                             count: 0,
                             types: {}
                         };
                     }
-                    
+
                     elementStats[targetPath].count++;
-                    
+
                     if (!elementStats[targetPath].types[mutation.type]) {
                         elementStats[targetPath].types[mutation.type] = 0;
                     }
-                    
+
                     elementStats[targetPath].types[mutation.type]++;
-                    
+
                     if (elementStats[targetPath].count > 20) {
                         console.warn(`Frequent mutations on: ${targetPath}`, mutation);
                     }
                 }
-                
+
                 if (mutations.length > 10) {
                     console.warn(`Large batch of mutations: ${mutations.length}`);
                 }
-                
+
                 if (mutationCount > 0 && mutationCount % 100 === 0) {
                     const elapsed = (Date.now() - startTime) / 1000;
                     console.info(`Mutation rate: ${(mutationCount / elapsed).toFixed(2)} per second`);
-                    
+
                     // Find elements with the most mutations
                     const topChangedElements = Object.entries(elementStats)
                         .sort((a, b) => b[1].count - a[1].count)
                         .slice(0, 3);
-                    
+
                     console.info('Top changed elements:');
                     topChangedElements.forEach(([path, stats]) => {
                         console.info(`${path}: ${stats.count} mutations (${Object.entries(stats.types).map(([type, count]) => `${type}: ${count}`).join(', ')})`);
                     });
                 }
             });
-            
+
             mutationObserver.observe(document.body, {
                 attributes: true,
                 childList: true,
                 subtree: true,
                 characterData: true
             });
-            
+
             console.info('DOM mutation monitoring active.');
         });
-        
+
         // Helper function to get a path to an element
         function getElementPath(element) {
             if (!element.tagName) return 'TEXT_NODE';
-            
+
             let path = element.tagName.toLowerCase();
             if (element.id) path += `#${element.id}`;
             if (element.className && typeof element.className === 'string') {
@@ -159,113 +179,114 @@
             }
             return path;
         }
-        
+
         // Loop detection
         document.getElementById('detectLoops').addEventListener('click', () => {
             console.info('Starting loop detection...');
-            
+
             // Monitor function call frequency
             function hookFunctionCalls(obj, funcName) {
                 const original = obj[funcName];
                 if (typeof original !== 'function') return;
-                
+
                 let callCount = 0;
                 const startTime = Date.now();
-                
-                obj[funcName] = function() {
+
+                obj[funcName] = function () {
                     callCount++;
-                    
+
                     if (callCount % 100 === 0) {
                         const elapsed = (Date.now() - startTime) / 1000;
                         const rate = callCount / elapsed;
-                        
+
                         if (rate > 50) { // More than 50 calls per second
                             console.warn(`High call rate for ${funcName}: ${rate.toFixed(2)} calls/sec`);
                             console.trace();
                         }
                     }
-                    
+
                     return original.apply(this, arguments);
                 };
-                
+
                 console.info(`Monitoring calls to ${funcName}`);
             }
-            
+
             // Hook common functions that might be called in loops
             hookFunctionCalls(window, 'requestAnimationFrame');
             hookFunctionCalls(document, 'createElement');
             hookFunctionCalls(document, 'getElementById');
             hookFunctionCalls(document, 'querySelector');
             hookFunctionCalls(document, 'querySelectorAll');
-            
+
             // Also monitor setTimeout/setInterval usage
             const originalSetTimeout = window.setTimeout;
-            window.setTimeout = function(callback, delay) {
+            window.setTimeout = function (callback, delay) {
                 if (delay < 50) {
                     console.warn(`Short setTimeout detected: ${delay}ms`);
                     console.trace('setTimeout trace');
                 }
                 return originalSetTimeout.apply(this, arguments);
             };
-            
+
             console.info('Loop detection active.');
         });
-        
+
         // Timer checking
         document.getElementById('checkTimers').addEventListener('click', () => {
             console.info('Checking for active timers...');
-            
+
             // This is a bit hacky, but can help find timers
             let timerCount = 0;
             const oldSetInterval = window.setInterval;
             const intervals = [];
-            
-            window.setInterval = function(fn, delay) {
+
+            window.setInterval = function (fn, delay) {
                 const id = oldSetInterval.apply(this, arguments);
                 intervals.push({ id, delay, stack: new Error().stack });
                 console.info(`New interval created: ${id} (${delay}ms)`);
                 return id;
             };
-            
+
             // Wait a bit to see what timers are created
             setTimeout(() => {
                 console.info(`Found ${intervals.length} active intervals`);
                 intervals.forEach((interval, i) => {
-                    console.info(`Interval ${i+1}: ID ${interval.id}, delay ${interval.delay}ms`);
+                    console.info(`Interval ${i + 1}: ID ${interval.id}, delay ${interval.delay}ms`);
                     console.info(`Stack: ${interval.stack}`);
                 });
             }, 2000);
-            
+
             console.info('Timer checking active.');
         });
-        
+
         // Run all tests
         document.getElementById('runTests').addEventListener('click', async () => {
             console.info('Running all diagnostic tests...');
-            
+
             // Run individual tests
             document.getElementById('monitorDom').click();
             document.getElementById('detectLoops').click();
             document.getElementById('checkTimers').click();
-            
+
             // Additional test: check script loading
             const scripts = document.querySelectorAll('script');
             console.info(`Found ${scripts.length} script elements on the page`);
-            
+
             // CSS analysis
             const styles = document.querySelectorAll('style, link[rel="stylesheet"]');
             console.info(`Found ${styles.length} style elements on the page`);
-            
+
             // Animation detection
             const animations = document.getAnimations ? document.getAnimations() : [];
             console.info(`Found ${animations.length} active animations`);
-            
+
             console.info('All tests started. Check console for results.');
         });
-        
+
         // Initial log
         console.info('Debug console initialized.');
         console.info('Click any button above to start diagnostics.');
     </script>
 </body>
+
 </html>

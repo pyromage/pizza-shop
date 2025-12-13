@@ -1,7 +1,7 @@
 {
   "name": "millbrook-pizza",
   "version": "1.0.0",
-  "description": "MillBrook Pizza Shop Website",
+  "description": "Millbrook Pizza Shop Website",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# MillBrook Pizza deployment script
+# Millbrook Pizza deployment script
 # This script deploys the website to AWS S3 and creates/updates the CloudFormation stack
 
 # Configuration
@@ -93,7 +93,7 @@ upload_to_s3() {
 }
 
 # Main execution
-echo -e "${YELLOW}Starting deployment for MillBrook Pizza website...${NC}"
+echo -e "${YELLOW}Starting deployment for Millbrook Pizza website...${NC}"
 
 # Deploy CloudFormation stack
 deploy_cloudformation
