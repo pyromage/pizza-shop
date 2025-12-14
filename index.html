@@ -682,30 +682,14 @@
 
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2></h2>
-            <div class="contact-info">
-                <div>
-                    <h3>Address</h3>
-                    <p><a href="https://maps.google.com/maps?q=13+Tupper+St,+Millbrook,+ON+L0A+1G0" target="_blank">13
-                            Tupper St<br>Millbrook, ON L0A 1G0</a></p>
-                </div>
-                <div>
-                    <h3>Hours</h3>
-                    <p> Mon: Closed<br>
-                        Tue: 3pm - 9pm<br>
-                        Wed-Sat: 11:30am - 9pm<br>
-                        Sun: 12pm - 8pm</p>
-                </div>
-                <div>
-                    <h3>Phone</h3>
-                    <p><a href="tel:7059323220">(705) 932-3220</a></p>
-                </div>
-                <div>
-                    <h3>Facebook</h3>
-                    <p><a href="https://www.facebook.com/groups/1497554914250717" target="_blank">Join Our Community</a>
-                    </p>
-                </div>
+            <div class="payment-logos-container"
+                style="display: flex; gap: 18px; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                <img src="images/Visa_Brandmark_Blue_RGB_2021.svg" alt="Visa" class="payment-logo"
+                    style="height: 30px;">
+                <img src="images/ma_symbol.svg" alt="Mastercard" class="payment-logo" style="height: 30px;">
+                <img src="images/InteracLogo.svg" alt="Interac" class="payment-logo" style="height: 30px;">
             </div>
+        </div>
         </div>
     </section>
 
@@ -719,11 +703,7 @@
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Millbrook Pizza. All rights reserved.</p>
-        </div>
-    </footer>
+    <p>&copy; 2025 Millbrook Pizza. All rights reserved.</p>
 
     <!-- Mobile Bottom Navigation -->
     <nav class="mobile-navbar">
@@ -738,15 +718,17 @@
                     </div>
                 </div>
             </li>
-            <li class="payment-logos">
-                <div class="payment-logos-container">
-                    <img src="images/Visa_Brandmark_Blue_RGB_2021.svg" alt="Visa" class="payment-logo">
-                    <img src="images/ma_symbol.svg" alt="Mastercard" class="payment-logo">
-                    <img src="images/InteracLogo.svg" alt="Interac" class="payment-logo">
-                </div>
-                <a href="https://maps.apple.com/?address=13+Tupper+St,+Millbrook,+ON+L0A+1G0" target="_blank"
-                    rel="noopener noreferrer" class="address-link">
-                    📍 13 Tupper St, Millbrook, ON L0A 1G0
+            <li class="navbar-links">
+                <a href="https://maps.google.com/maps?q=13+Tupper+St,+Millbrook,+ON+L0A+1G0" target="_blank"
+                    rel="noopener noreferrer" class="address-link" style="margin: 0; padding: 0;">
+                    📍 13 Tupper St, Millbrook, ON
+                </a>
+                <a>tel:(705) 932-3220</a>
+                <a href="https://www.facebook.com/groups/1497554914250717" target="_blank" rel="noopener noreferrer"
+                    class="address-link"
+                    style="margin-top: 0.25rem; padding: 0; display: flex !important; flex-direction: row !important; align-items: center; justify-content: center; gap: 4px; font-size: 0.7rem;">
+                    <img src="images/Facebook_Logo_Primary.png" alt="Facebook" style="width: 14px; height: 14px;">
+                    Follow Us
                 </a>
             </li>
         </ul>
