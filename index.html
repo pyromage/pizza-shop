@@ -10,7 +10,7 @@
     <meta name="description"
         content="Dan's Millbrook Pizza offers oven fresh, delicious pizza for pickup in Millbrook, Ontario. Call (705) 932-3220 to order. Open Mon-Tue 3pm-9pm, Wed-Sat 11:30am-9pm, Sun 12pm-8pm.">
     <meta name="keywords"
-        content="pizza, Millbrook, Ontario, pickup, takeout, fresh pizza, Dan's Millbrook Pizza, food delivery, restaurant">
+        content="pizza, Millbrook, Ontario, pickup, takeout, fresh pizza, Dan's Millbrook Pizza, best pizza Millbrook, fresh dough pizza, oven baked pizza Millbrook, pizza near me, Millbrook pizza delivery, panzerotti Millbrook, torpedo sandwich, garlic bread, wings Millbrook, family pizza restaurant">
     <meta name="author" content="Dan's Millbrook Pizza">
     <meta name="robots" content="index, follow">
 
@@ -44,7 +44,7 @@
         "@type": "Restaurant",
         "name": "Dan's Millbrook Pizza",
         "image": "https://dansmillbrookpizza.ca/images/millbrooklogo.jpg",
-        "description": "Oven fresh, delicious pizza for pickup in Millbrook, Ontario",
+        "description": "Oven fresh, delicious pizza for pickup in Millbrook, Ontario. Handmade dough, fresh ingredients, custom pizzas, panzerotti, torpedo sandwiches, wings, and more.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "13 Tupper St",
@@ -61,16 +61,133 @@
         "telephone": "+17059323220",
         "url": "https://dansmillbrookpizza.ca",
         "priceRange": "$",
-        "servesCuisine": "Pizza",
+        "servesCuisine": ["Pizza", "Italian"],
         "openingHours": [
             "Tu 15:00-21:00",
             "We-Sa 11:30-21:00",
             "Su 12:00-20:00"
         ],
         "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "Visa", "Mastercard", "Interac"],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.6",
+            "reviewCount": "176",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
         "hasDeliveryMethod": {
             "@type": "DeliveryMethod",
             "name": "Pickup"
+        },
+        "hasMenu": {
+            "@type": "Menu",
+            "hasMenuSection": [
+                {
+                    "@type": "MenuSection",
+                    "name": "Custom Pizza",
+                    "description": "Create your own pizza with fresh toppings",
+                    "hasMenuItem": [
+                        {
+                            "@type": "MenuItem",
+                            "name": "Custom Pizza - Small (4 slice)",
+                            "description": "Hand-tossed dough with your choice of toppings",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "12.10",
+                                "priceCurrency": "CAD"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "MenuSection",
+                    "name": "Specialty Pizzas",
+                    "hasMenuItem": [
+                        {
+                            "@type": "MenuItem",
+                            "name": "Top 6 Pizza",
+                            "description": "Pepperoni, mushrooms, green peppers, onions, bacon, and ham",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "16.90",
+                                "priceCurrency": "CAD"
+                            }
+                        },
+                        {
+                            "@type": "MenuItem",
+                            "name": "All Meat Pizza",
+                            "description": "Pepperoni, bacon, ham, salami, beef, and sausage",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "14.95",
+                                "priceCurrency": "CAD"
+                            }
+                        },
+                        {
+                            "@type": "MenuItem",
+                            "name": "Deluxe Pizza",
+                            "description": "All toppings",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "22.50",
+                                "priceCurrency": "CAD"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "MenuSection",
+                    "name": "Panzerotti & Specialty Items",
+                    "hasMenuItem": [
+                        {
+                            "@type": "MenuItem",
+                            "name": "Panzerotti",
+                            "description": "Hand-wrapped and oven-baked with cheese, sauce, and your choice of toppings",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "12.25",
+                                "priceCurrency": "CAD"
+                            }
+                        },
+                        {
+                            "@type": "MenuItem",
+                            "name": "Torpedo",
+                            "description": "Hand-wrapped in fresh pizza dough with onions, tomatoes, herbs, cheese, and filling",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "13.00",
+                                "priceCurrency": "CAD"
+                            }
+                        },
+                        {
+                            "@type": "MenuItem",
+                            "name": "Garlic Bread",
+                            "description": "Hand-wrapped in fresh pizza dough with garlic and cheese",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "4.95",
+                                "priceCurrency": "CAD"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "MenuSection",
+                    "name": "Wings & Sides",
+                    "hasMenuItem": [
+                        {
+                            "@type": "MenuItem",
+                            "name": "Breaded Oven Baked Wings",
+                            "description": "Available in Honey Garlic, Mild, Hot, or BBQ",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "17.00",
+                                "priceCurrency": "CAD"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
     </script>
@@ -135,8 +252,10 @@
     <section id="menu" class="menu-section">
         <div class="container">
             <!-- Oven-Fresh Pizza -->
-            <div id="pizza" class="category-section">
-                <h3>Create your own!</h3>
+            <div id="pizza" class="category-section" itemscope itemtype="https://schema.org/MenuSection">
+                <h3 itemprop="name">Create your own!</h3>
+                <p itemprop="description" style="display:none;">Hand-tossed pizza with fresh toppings and homemade dough
+                </p>
                 <div class="toppings-section">
                     <div class="toppings-columns">
                         <div class="toppings-column">
@@ -224,13 +343,16 @@
             </div>
 
             <!-- Trusted Favorites -->
-            <div class="category-section">
-                <h3>Trusted Favourites</h3>
+            <div class="category-section" itemscope itemtype="https://schema.org/MenuSection">
+                <h3 itemprop="name">Trusted Favourites</h3>
                 <div class="menu-items-grid">
-                    <div class="menu-item">
-                        <h3>Top 6</h3>
+                    <div class="menu-item" itemscope itemtype="https://schema.org/MenuItem">
+                        <h3 itemprop="name">Top 6</h3>
+                        <meta itemprop="description"
+                            content="Pepperoni, mushrooms, green peppers, onions, bacon, and ham">
                         <div class="menu-item-image-wrapper">
-                            <img src="images/top6-pizza.png" alt="Top 6">
+                            <img itemprop="image" src="images/top6-pizza.png"
+                                alt="Top 6 Pizza with pepperoni, mushrooms, peppers, onions, bacon and ham">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🍕 Pepperoni</span>
                                 <span class="ingredient-badge">🍄 Mushrooms</span>
@@ -246,14 +368,19 @@
                                     slice</span>
                             </div>
                             <div class="pricing-row prices">
-                                <span>$16.90</span><span>$24.25</span><span>$28.50</span><span>$31.65</span>
+                                <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                                    <meta itemprop="price" content="16.90">
+                                    <meta itemprop="priceCurrency" content="CAD">$16.90
+                                </span><span>$24.25</span><span>$28.50</span><span>$31.65</span>
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <h3>All Meat</h3>
+                    <div class="menu-item" itemscope itemtype="https://schema.org/MenuItem">
+                        <h3 itemprop="name">All Meat</h3>
+                        <meta itemprop="description" content="Pepperoni, bacon, ham, salami, beef, and sausage">
                         <div class="menu-item-image-wrapper">
-                            <img src="images/meat-pizza.png" alt="All Meat">
+                            <img itemprop="image" src="images/meat-pizza.png"
+                                alt="All Meat Pizza with pepperoni, bacon, ham, salami, beef and sausage">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🍕 Pepperoni</span>
                                 <span class="ingredient-badge">🥓 Bacon</span>
@@ -276,7 +403,8 @@
                     <div class="menu-item">
                         <h3>Veggie</h3>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/Veggie-pizza.png" alt="Veggie">
+                            <img src="images/Veggie-pizza.png"
+                                alt="Veggie Pizza with mushrooms, green peppers, onions and tomatoes">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🍄 Mushrooms</span>
                                 <span class="ingredient-badge">🫑 Green Peppers</span>
@@ -297,7 +425,8 @@
                     <div class="menu-item">
                         <h3>Canadian</h3>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/canadian-pizza.png" alt="Canadian">
+                            <img src="images/canadian-pizza.png"
+                                alt="Canadian Pizza with pepperoni, mushrooms and bacon">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🍕 Pepperoni</span>
                                 <span class="ingredient-badge">🍄 Mushroom</span>
@@ -317,7 +446,7 @@
                     <div class="menu-item">
                         <h3>Hawaiian</h3>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/Hawaiian-pizza.png" alt="Hawaiian">
+                            <img src="images/Hawaiian-pizza.png" alt="Hawaiian Pizza with ham and pineapple">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🍖 Ham</span>
                                 <span class="ingredient-badge">🍍 Pineapple</span>
@@ -336,7 +465,7 @@
                     <div class="menu-item">
                         <h3>Our DELUXE!!!</h3>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/deluxe-pizza.png" alt="Deluxe">
+                            <img src="images/deluxe-pizza.png" alt="Deluxe Pizza with all toppings">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">ALL Toppings!</span>
                             </div>
@@ -355,14 +484,16 @@
             </div>
 
             <!-- Specialty Items -->
-            <div class="category-section">
+            <div class="category-section" itemscope itemtype="https://schema.org/MenuSection">
+                <meta itemprop="name" content="Specialty Items">
                 <div class="menu-items-grid">
-                    <div id="panzerotti" class="menu-item">
-                        <h3>Panzerotti</h3>
-                        <p class="category-description">Hand-wrapped & oven-baked with cheese and sauce. Choose your
+                    <div id="panzerotti" class="menu-item" itemscope itemtype="https://schema.org/MenuItem">
+                        <h3 itemprop="name">Panzerotti</h3>
+                        <p class="category-description" itemprop="description">Hand-wrapped & oven-baked with cheese and
+                            sauce. Choose your
                             toppings.</p>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/Panzerotti.png" alt="Panzerotti">
+                            <img src="images/Panzerotti.png" alt="Panzerotti - hand-wrapped oven-baked pizza pocket">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🍕 Sauce</span>
                                 <span class="ingredient-badge">🧀 Cheese</span>
@@ -397,12 +528,13 @@
                             </table>
                         </div>
                     </div>
-                    <div id="torpedo" class="menu-item">
-                        <h3>Torpedo</h3>
-                        <p class="category-description">Hand-wrapped in our fresh pizza dough. All torpedoes come with
+                    <div id="torpedo" class="menu-item" itemscope itemtype="https://schema.org/MenuItem">
+                        <h3 itemprop="name">Torpedo</h3>
+                        <p class="category-description" itemprop="description">Hand-wrapped in our fresh pizza dough.
+                            All torpedoes come with
                             onions, sliced tomatoes, herbs and cheese plus your choice of filling.</p>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/Torpedo.png" alt="Torpedo">
+                            <img src="images/Torpedo.png" alt="Torpedo sandwich wrapped in fresh pizza dough">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🧅 Onions</span>
                                 <span class="ingredient-badge">🍅 Sliced Tomatoes</span>
@@ -448,12 +580,13 @@
                             </div>
                         </div>
                     </div>
-                    <div id="garlic-bread" class="menu-item">
-                        <h3>Garlic Bread</h3>
-                        <p class="category-description">Hand-wrapped in our fresh pizza dough, filled with garlic and
+                    <div id="garlic-bread" class="menu-item" itemscope itemtype="https://schema.org/MenuItem">
+                        <h3 itemprop="name">Garlic Bread</h3>
+                        <p class="category-description" itemprop="description">Hand-wrapped in our fresh pizza dough,
+                            filled with garlic and
                             cheese.</p>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/garlic-bread.jpeg" alt="Garlic Bread">
+                            <img src="images/garlic-bread.jpeg" alt="Garlic Bread wrapped in fresh pizza dough">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🥖 Plain</span>
                                 <span class="ingredient-badge">🧀 Cheese</span>
@@ -489,11 +622,12 @@
             </div>
 
             <!-- More Favourites -->
-            <div class="category-section">
+            <div class="category-section" itemscope itemtype="https://schema.org/MenuSection">
+                <meta itemprop="name" content="Wings & Sides">
                 <div class="menu-items-grid">
-                    <div id="wings" class="menu-item">
-                        <h3>Wings</h3>
-                        <p class="category-description">Breaded and Oven Baked.</p>
+                    <div id="wings" class="menu-item" itemscope itemtype="https://schema.org/MenuItem">
+                        <h3 itemprop="name">Wings</h3>
+                        <p class="category-description" itemprop="description">Breaded and Oven Baked.</p>
                         <div class="menu-item-image-wrapper">
                             <img src="images/wings.jpeg" alt="Baked Wings">
                             <div class="ingredient-badges-overlay">
@@ -529,7 +663,7 @@
                     <div id="beverages" class="menu-item">
                         <h3>Beverages</h3>
                         <div class="menu-item-image-wrapper">
-                            <img src="images/beverages-menu.png" alt="beverages">
+                            <img src="images/beverages-menu.png" alt="Beverages - Coke, Sprite, Ginger Ale, and Water">
                             <div class="ingredient-badges-overlay">
                                 <span class="ingredient-badge">🥤 Coke, Sprite, Ginger Ale</span>
                                 <span class="ingredient-badge">💧 Water</span>
