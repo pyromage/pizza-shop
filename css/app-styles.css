@@ -860,6 +860,18 @@ select {
     }
 }
 
+.toppings-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin: 0.5rem 0;
+}
+
+.toppings-text strong {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
 .topping-badge {
     display: inline-flex;
     align-items: center;
@@ -888,6 +900,14 @@ select {
     line-height: 1.6;
     margin-bottom: 0;
     color: var(--gray-600);
+}
+
+.ingredients-list {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin: 0.5rem 0 0.75rem 0;
+    text-align: center;
+    line-height: 1.4;
 }
 
 /* Category section styling */
