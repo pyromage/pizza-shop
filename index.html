@@ -61,10 +61,10 @@
     <meta name="theme-color" content="#ef4444">
 </head>
 
-<body class="font-sans text-gray-800 bg-gradient-to-b from-white to-gray-50 antialiased leading-relaxed">
+<body class="font-sans text-gray-800 bg-gradient-to-b from-white to-gray-50 antialiased leading-relaxed pb-28 md:pb-20">
     <!-- Header -->
     <header class="bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100 sticky top-0 z-50 py-3">
-        <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div class="max-w-5xl mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <img src="images/millbrooklogo.jpg" alt="Millbrook Pizza Logo"
                     class="h-12 w-12 rounded-full object-cover shadow-sm">
@@ -88,9 +88,9 @@
     </section>
 
     <!-- Quick Navigation -->
-    <nav class="py-4 bg-gray-50 border-b border-gray-200 overflow-x-auto">
+    <nav class="py-4 bg-gray-50 border-b border-gray-200">
         <div class="max-w-5xl mx-auto px-4">
-            <div class="flex gap-2 justify-start md:justify-center min-w-max md:min-w-0">
+            <div class="flex flex-wrap gap-2 justify-center">
                 <a href="#pizza" class="nav-badge">🍕 Pizza</a>
                 <a href="#panzerotti" class="nav-badge">🥟 Panzerotti</a>
                 <a href="#torpedo" class="nav-badge">🌯 Torpedo</a>
@@ -106,20 +106,23 @@
         <div class="max-w-5xl mx-auto px-4">
 
             <!-- Create Your Own Pizza -->
-            <div id="pizza" class="mb-12">
+            <div id="pizza" class="mb-12" x-data="{
+                veggies: ['Black Olives', 'Green Olives', 'Green Peppers', 'Hot Peppers', 'Jalapeño Peppers', 'Mushrooms', 'Onions', 'Pineapple', 'Tomatoes'],
+                protein: ['Anchovies', 'Bacon', 'Chicken', 'Ham', 'Pepperoni', 'Salami'],
+                get allToppings() { return [...this.veggies, ...this.protein] },
+                toppings: 1,
+                base: { s: 12.10, m: 15.25, l: 18.00, xl: 19.35 },
+                perTopping: { s: 0.80, m: 1.50, l: 1.75, xl: 2.05 },
+                price(size) { return '$' + (this.base[size] + this.perTopping[size] * this.toppings).toFixed(2) },
+                get maxToppings() { return this.allToppings.length }
+            }">
                 <h3 class="text-2xl md:text-3xl font-bold text-center mb-4 text-gray-900">Create your own!</h3>
                 <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-4 mb-6 text-sm">
-                    <p class="mb-2"><strong>🥬 Veggies:</strong> Black Olives, Green Olives, Green Peppers, Hot Peppers,
-                        Jalapeño Peppers, Mushrooms, Onions, Pineapple, Tomatoes</p>
-                    <p><strong>🍖 Protein:</strong> Anchovies, Bacon, Chicken, Ham, Pepperoni, Salami</p>
+                    <p class="mb-2"><strong>🥬 Veggies:</strong> <span x-text="veggies.join(', ')"></span></p>
+                    <p><strong>🍖 Protein:</strong> <span x-text="protein.join(', ')"></span></p>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-md overflow-hidden" x-data="{
-                    toppings: 1,
-                    base: { s: 12.10, m: 15.25, l: 18.00, xl: 19.35 },
-                    perTopping: { s: 0.80, m: 1.50, l: 1.75, xl: 2.05 },
-                    price(size) { return '$' + (this.base[size] + this.perTopping[size] * this.toppings).toFixed(2) }
-                }">
+                <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                     <table class="pricing-table">
                         <thead>
                             <tr>
@@ -138,17 +141,22 @@
                                 <td>$18.00</td>
                                 <td>$19.35</td>
                             </tr>
+                            <tr>
+                                <td class="text-left pl-4">Additional Toppings</td>
+                                <td>$0.80</td>
+                                <td>$1.50</td>
+                                <td>$1.75</td>
+                                <td>$2.05</td>
+                            </tr>
                             <tr class="toppings-row">
                                 <td class="text-left pl-4">
-                                    <select x-model="toppings" class="toppings-select">
-                                        <option value="1">1 Topping</option>
-                                        <option value="2">2 Toppings</option>
-                                        <option value="3">3 Toppings</option>
-                                        <option value="4">4 Toppings</option>
-                                        <option value="5">5 Toppings</option>
-                                        <option value="6">6 Toppings</option>
-                                        <option value="7">7 Toppings</option>
-                                    </select>
+                                    <div class="flex items-center gap-1">
+                                        <button @click="toppings = Math.max(1, toppings - 1)"
+                                            class="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold">−</button>
+                                        <span class="w-8 text-center font-semibold" x-text="toppings"></span>
+                                        <button @click="toppings = Math.min(maxToppings, toppings + 1)"
+                                            class="w-7 h-7 rounded-full bg-gray-200 hover:bg-gray-300 font-bold">+</button>
+                                    </div>
                                 </td>
                                 <td><span x-text="price('s')"></span></td>
                                 <td><span x-text="price('m')"></span></td>
@@ -187,9 +195,11 @@
                             loading="lazy">
                         <div class="text-xs">
                             <div class="flex justify-between text-gray-500 mb-1">
-                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span></div>
+                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span>
+                            </div>
                             <div class="flex justify-between font-semibold text-gray-800">
-                                <span>$16.90</span><span>$24.25</span><span>$28.50</span><span>$31.65</span></div>
+                                <span>$16.90</span><span>$24.25</span><span>$28.50</span><span>$31.65</span>
+                            </div>
                         </div>
                     </div>
                     <div class="menu-card p-4">
@@ -199,9 +209,11 @@
                             loading="lazy">
                         <div class="text-xs">
                             <div class="flex justify-between text-gray-500 mb-1">
-                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span></div>
+                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span>
+                            </div>
                             <div class="flex justify-between font-semibold text-gray-800">
-                                <span>$14.95</span><span>$21.25</span><span>$26.50</span><span>$31.65</span></div>
+                                <span>$14.95</span><span>$21.25</span><span>$26.50</span><span>$31.65</span>
+                            </div>
                         </div>
                     </div>
                     <div class="menu-card p-4">
@@ -211,9 +223,11 @@
                             loading="lazy">
                         <div class="text-xs">
                             <div class="flex justify-between text-gray-500 mb-1">
-                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span></div>
+                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span>
+                            </div>
                             <div class="flex justify-between font-semibold text-gray-800">
-                                <span>$15.30</span><span>$21.25</span><span>$25.00</span><span>$27.85</span></div>
+                                <span>$15.30</span><span>$21.25</span><span>$25.00</span><span>$27.85</span>
+                            </div>
                         </div>
                     </div>
                     <div class="menu-card p-4">
@@ -223,9 +237,11 @@
                             class="w-full h-40 object-contain mb-4" loading="lazy">
                         <div class="text-xs">
                             <div class="flex justify-between text-gray-500 mb-1">
-                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span></div>
+                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span>
+                            </div>
                             <div class="flex justify-between font-semibold text-gray-800">
-                                <span>$14.50</span><span>$19.75</span><span>$23.25</span><span>$25.50</span></div>
+                                <span>$14.50</span><span>$19.75</span><span>$23.25</span><span>$25.50</span>
+                            </div>
                         </div>
                     </div>
                     <div class="menu-card p-4">
@@ -235,9 +251,11 @@
                             class="w-full h-40 object-contain mb-4" loading="lazy">
                         <div class="text-xs">
                             <div class="flex justify-between text-gray-500 mb-1">
-                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span></div>
+                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span>
+                            </div>
                             <div class="flex justify-between font-semibold text-gray-800">
-                                <span>$13.70</span><span>$18.25</span><span>$21.50</span><span>$23.45</span></div>
+                                <span>$13.70</span><span>$18.25</span><span>$21.50</span><span>$23.45</span>
+                            </div>
                         </div>
                     </div>
                     <div class="menu-card p-4">
@@ -247,9 +265,11 @@
                             loading="lazy">
                         <div class="text-xs">
                             <div class="flex justify-between text-gray-500 mb-1">
-                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span></div>
+                                <span>Sm</span><span>Med</span><span>Lrg</span><span>XL</span>
+                            </div>
                             <div class="flex justify-between font-semibold text-gray-800">
-                                <span>$22.50</span><span>$34.75</span><span>$40.75</span><span>$46.00</span></div>
+                                <span>$22.50</span><span>$34.75</span><span>$40.75</span><span>$46.00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -419,21 +439,21 @@
     <p class="text-center text-gray-500 text-sm py-4">© 2025 Millbrook Pizza. All rights reserved.</p>
 
     <!-- Footer Navigation -->
-    <nav class="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-4 px-4"
+    <nav class="bg-gradient-to-r from-orange-300 to-orange-400 text-white py-3 px-4 fixed bottom-0 left-0 right-0 z-50"
         x-data="{ today: new Date().getDay() }">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-            <div class="text-center md:text-left">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 gap-4 items-center text-sm">
+            <div class="text-left">
                 <div class="hours-line" :class="{ 'today': today === 1 }">Mon: Closed</div>
                 <div class="hours-line" :class="{ 'today': today === 2 }">Tue: 3pm-9pm</div>
                 <div class="hours-line" :class="{ 'today': today >= 3 && today <= 6 }">Wed-Sat: 11:30am-9pm</div>
                 <div class="hours-line" :class="{ 'today': today === 0 }">Sun: 12pm-8pm</div>
             </div>
-            <div class="text-center space-y-1">
+            <div class="text-right space-y-0.5 font-medium">
                 <a href="https://maps.app.goo.gl/37A5Rb4k45rQfT9P9" target="_blank" rel="noopener noreferrer"
-                    class="text-sm text-gray-300 hover:text-white block">📍 13 Tupper St, Millbrook, ON</a>
-                <a href="tel:7059323220" class="text-sm text-gray-300 hover:text-white block">(705) 932-3220</a>
+                    class="text-white hover:text-white/80 block font-bold">📍 13 Tupper St, Millbrook</a>
+                <a href="tel:7059323220" class="text-white hover:text-white/80 block">📞 (705) 932-3220</a>
                 <a href="https://www.facebook.com/groups/1497554914250717" target="_blank" rel="noopener noreferrer"
-                    class="text-sm text-gray-300 hover:text-white inline-flex items-center gap-1">
+                    class="text-white hover:text-white/80 inline-flex items-center gap-1 justify-end">
                     <img src="images/Facebook_Logo_Primary.png" alt="Facebook" class="w-4 h-4"> Follow Us
                 </a>
             </div>
