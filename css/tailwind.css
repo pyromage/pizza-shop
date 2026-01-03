@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Custom theme */
+@theme {
+  --color-primary-50: #fef2f2;
+  --color-primary-100: #fee2e2;
+  --color-primary-500: #ef4444;
+  --color-primary-600: #dc2626;
+  --color-primary-700: #b91c1c;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom utilities */
+@layer components {
+  .btn-primary {
+    @apply inline-block bg-gradient-to-r from-primary-500 to-primary-600 text-white py-3 px-6 rounded-xl font-semibold text-center transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 no-underline;
+  }
+
+  .menu-card {
+    @apply bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .nav-badge {
+    @apply inline-flex items-center gap-1 px-4 py-2 bg-white rounded-full shadow-sm text-sm font-medium text-gray-700 transition-all duration-200 hover:shadow-md hover:bg-primary-500 hover:text-white no-underline;
+  }
+
+  .hours-line {
+    @apply text-sm text-gray-300;
+  }
+
+  .hours-line.today {
+    @apply text-white font-bold bg-primary-500/30 rounded px-2 py-0.5;
+  }
+
+  .pricing-table {
+    @apply w-full text-sm border-collapse;
+  }
+
+  .pricing-table th,
+  .pricing-table td {
+    @apply py-2 px-2 text-center border-b border-gray-100;
+  }
+
+  .pricing-table th {
+    @apply bg-gray-50 font-semibold text-gray-700 text-xs;
+  }
+
+  .pricing-table td {
+    @apply text-gray-600;
+  }
+
+  .toppings-row {
+    @apply bg-primary-50;
+  }
+
+  .toppings-row td span {
+    @apply font-semibold text-primary-500;
+  }
+
+  .toppings-select {
+    @apply bg-transparent border border-gray-300 rounded-lg px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500;
+  }
+}
